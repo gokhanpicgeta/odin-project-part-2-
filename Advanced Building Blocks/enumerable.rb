@@ -2,11 +2,9 @@ module Enumerable
     def my_each
         
         return self unless block_given?
-        
         for i in self
             yield i
         end
-        
         self
     end
     
@@ -14,12 +12,11 @@ module Enumerable
        
        return self unless block_given?
        j = 0
-       for i in self
        
+       for i in self
             yield(i,j)
             j+=1
        end
-
     end
 
     def my_select
@@ -31,7 +28,6 @@ module Enumerable
             if x
                 puts i
             end
-            
         end
     
     end
