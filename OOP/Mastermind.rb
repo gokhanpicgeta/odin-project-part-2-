@@ -9,6 +9,8 @@ class MasterMind
         @wrongAnswers = 0
         @colorCount = {"R" => 0,"B" => 0, "Y" => 0, "G" => 0, "W" => 0, "O" => 0, "S" => 0}
         @colorsGuessed = {"R" => 0,"B" => 0, "Y" => 0, "G" => 0, "W" => 0, "O" => 0, "S" => 0}
+        @tempColor = {"R" => 0,"B" => 0, "Y" => 0, "G" => 0, "W" => 0, "O" => 0, "S" => 0}
+        
     end
     
     def pickingColor
@@ -36,7 +38,9 @@ class MasterMind
     def gameState
         @correctAnswers = 0
         @wrongAnswers = 0
+        temp = 0
         @colorsGuessed = {"R" => 0,"B" => 0, "Y" => 0, "G" => 0, "W" => 0, "O" => 0, "S" => 0}
+        @tempColor = {"R" => 0,"B" => 0, "Y" => 0, "G" => 0, "W" => 0, "O" => 0, "S" => 0}
         4.times do |i|
             
             if @fourColors.include? @guessArray[i] and @colorsGuessed[@guessArray[i]] < @colorCount[@guessArray[i]]
@@ -44,14 +48,29 @@ class MasterMind
                 if @guessArray[i] == @fourColors[i]
                     @correctAnswers+=1
                     @colorsGuessed[@guessArray[i]]+=1
+                    @tempColor[@guessArray[i]] = 0
                     
-                elsif @colorsGuessed[@guessArray[i]] < @colorCount[@guessArray[i]]
+                elsif @colorsGuessed[@guessArray[i]] < @colorCount[@guessArray[i]] #This means that if the position is wrong but the color still exists in the remaining part of the array then do nothing SOMETHINGS WRONG HERE THO FUCK
+                    @tempColor[@guessArray[i]]+=1
                     next
                 else
                     @wrongAnswers+=1
                     @colorsGuessed[@guessArray[i]]+=1
+                    
                 end
             end
+        end
+        
+        if @wrongAnswers + @correctAnswers < 4
+            total = 0
+            
+            @tempColor.each do |key,value|
+                
+                total+=value
+                
+            end
+            
+            @wrongAnswers+=total
         end
         
         if @correctAnswers == 4
