@@ -50,9 +50,9 @@ class MasterMind
                     @colorsGuessed[@guessArray[i]]+=1
                     @tempColor[@guessArray[i]] = 0
                     
-                elsif @colorsGuessed[@guessArray[i]] < @colorCount[@guessArray[i]] #This means that if the position is wrong but the color still exists in the remaining part of the array then do nothing SOMETHINGS WRONG HERE THO FUCK
+                elsif @colorsGuessed[@guessArray[i]] < @colorCount[@guessArray[i]] #This means that if the position is wrong but the color still exists in the remaining part of the array then add it in the temp colour array and the temp array will be reset if the correct position is found otherwise itll be added onto the wrong answers in the ending 
                     @tempColor[@guessArray[i]]+=1
-                    next
+                    
                 else
                     @wrongAnswers+=1
                     @colorsGuessed[@guessArray[i]]+=1
